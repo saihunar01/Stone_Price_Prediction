@@ -27,8 +27,8 @@ class DataTransformation:
             logging.info('Data Transformation initiated')
 
             # Define which columns should be ordinal-encoded and which should be scaled
-            categorical_cols = X.select_dtypes(include='object').columns
-            numerical_cols = X.select_dtypes(exclude='object').columns
+            categorical_cols = ['cut','color','clarity']
+            numerical_cols = ['carat','depth','table','x','y','z']
             
             # Define the custom ranking for each ordinal variable
             cut_categories = ['Fair', 'Good', 'Very Good','Premium','Ideal']
