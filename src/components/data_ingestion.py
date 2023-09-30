@@ -5,7 +5,7 @@ from src.exception import CustomException
 import pandas as pd
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
-
+from src.components.data_transformation import DataTransformation
 
 
 #Initialize the data ingestion configuration
@@ -42,12 +42,19 @@ class DataIngestion:
             logging.info(' train and test data been saved to the perspective location')
             logging.info('Data ingestion completed')
 
+            return (
+                self.ingestion_config.train_data_path,
+                self.ingestion_config.test_data_path
+            )
+
 
         except Exception as e:
             logging.info('Exception occured at Data Ingestion Stage')
             raise CustomException(e,sys)
         
 
-'''if __name__=="__main__":
+if __name__=="__main__":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()'''
+    train_data_path,test_data_path=obj.initiate_data_ingestion()
+    data_transformation=DataTransformation()
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data_path,test_data_path)
